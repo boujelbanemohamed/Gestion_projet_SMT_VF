@@ -1,0 +1,184 @@
+const baseUrl = 'http://localhost:3000';
+
+const users = [
+  {
+    role: 'super-admin',
+    email: 'admin@banque.com',
+    password: 'admin123',
+    canDeleteUser: true,
+    canAccessSettings: true,
+    canCreateUser: true,
+    canSeeAudit: true,
+  },
+  {
+    role: 'admin',
+    email: 'admin2@banque.com',
+    password: 'admin123',
+    canDeleteUser: false,
+    canAccessSettings: true,
+    canCreateUser: true,
+    canSeeAudit: true,
+  },
+  {
+    role: 'operateur',
+    email: 'operateur1@banque.com',
+    password: 'op123',
+    canDeleteUser: false,
+    canAccessSettings: false,
+    canCreateUser: false,
+    canSeeAudit: false,
+  },
+  {
+    role: 'auditeur',
+    email: 'lecteur1@banque.com',
+    password: 'lect123',
+    canDeleteUser: false,
+    canAccessSettings: false,
+    canCreateUser: false,
+    canSeeAudit: false,
+  },
+];
+
+users.forEach((user) => {
+  describe(`Tests complets pour le rôle : ${user.role}`, () => {
+    beforeEach(() => {
+      cy.visit(baseUrl + '/login');
+      cy.get('input[type="email"]').clear().type(user.email);
+      cy.get('input[type="password"]').clear().type(user.password);
+      cy.get('button[type="submit"]').click();
+      cy.url().should('not.include', '/login');
+    });
+
+    it('Dashboard - Affichage des KPIs et boutons', () => {
+      cy.visit(baseUrl + '/dashboard');
+      cy.contains('Utilisateurs').should('exist');
+      cy.contains('Stock').should('exist');
+      cy.contains('Mouvements').should('exist');
+      cy.get('button').should('exist');
+    });
+
+    it('Utilisateurs - Liste, création, édition, suppression', () => {
+      cy.visit(baseUrl + '/users');
+      cy.contains('Gestion des Utilisateurs').should('exist');
+      if (user.canCreateUser) {
+        cy.get('button').contains('Nouvel Utilisateur').should('exist').click();
+        cy.get('input#firstName').type('Test');
+        cy.get('input#lastName').type('User');
+        cy.get('input#username').type('testuser');
+        cy.get('input#email').type('testuser@banque.com');
+        cy.get('input#password').type('test1234');
+        cy.get('input#confirmPassword').type('test1234');
+        cy.get('button').contains("Créer l'utilisateur").click();
+        cy.contains('Test').should('exist');
+        cy.contains('User').should('exist');
+        // Édition
+        cy.get('button').contains('Edit').first().click({ force: true });
+        cy.get('input#edit-firstName').clear().type('TestModif');
+        cy.get('button').contains('Sauvegarder').click();
+        cy.contains('TestModif').should('exist');
+      } else {
+        cy.get('button').contains('Nouvel Utilisateur').should('not.exist');
+      }
+      if (user.canDeleteUser) {
+        cy.get('button').contains('Trash').first().click({ force: true });
+        cy.contains('Confirmer la suppression').should('exist');
+        cy.get('button').contains('Supprimer').click();
+        cy.contains('TestModif').should('not.exist');
+      } else {
+        cy.get('button').contains('Trash').should('not.exist');
+      }
+    });
+
+    it('Rôles & Permissions - Affichage, sélection, modification', () => {
+      cy.visit(baseUrl + '/users');
+      cy.contains('Rôles & Permissions').click();
+      cy.contains('Super Administrateur').should('exist');
+      cy.contains('Opérateur de Stock').should('exist');
+      cy.contains('Super Administrateur').click();
+      cy.contains('Niveau').should('exist');
+      cy.get('button').contains('Modifier').should('exist').click();
+      cy.get('input[type="checkbox"]').first().click();
+      cy.get('button').contains('Sauvegarder').click();
+      cy.contains('Permissions').should('exist');
+    });
+
+    it('Sessions - Affichage', () => {
+      cy.contains('Sessions Actives').click();
+      cy.contains('Sessions Actives').should('exist');
+      cy.get('table').should('exist');
+      cy.get('table').contains('Actif');
+    });
+
+    it('Audit - Affichage', () => {
+      cy.contains("Journal d'Audit").click();
+      if (user.canSeeAudit) {
+        cy.contains("Journal d'Audit").should('exist');
+        cy.get('table').should('exist');
+        cy.get('table').contains('Action');
+        cy.get('tbody tr').its('length').should('be.gte', 1);
+      } else {
+        cy.contains("Journal d'Audit").should('not.exist');
+      }
+    });
+
+    it('Stock - Affichage et boutons', () => {
+      cy.visit(baseUrl + '/stock');
+      cy.contains('Stock').should('exist');
+      cy.get('table').should('exist');
+      cy.get('button').should('exist');
+    });
+
+    it('Mouvements - Création, vérification, alerte', () => {
+      cy.visit(baseUrl + '/movements');
+      cy.contains('Ajouter un mouvement').click();
+      cy.get('select[name="type"]').select('ENTREE');
+      cy.get('input[name="quantity"]').type('10');
+      cy.get('select[name="cardType"]').select(1);
+      cy.get('select[name="location"]').select(1);
+      cy.get('button').contains('Valider').click();
+      cy.contains('Mouvement enregistré').should('exist');
+      cy.visit(baseUrl + '/stock');
+      cy.get('table').contains('10');
+      // Test alerte
+      cy.visit(baseUrl + '/movements');
+      cy.contains('Ajouter un mouvement').click();
+      cy.get('select[name="type"]').select('SORTIE');
+      cy.get('input[name="quantity"]').type('1000');
+      cy.get('select[name="cardType"]').select(1);
+      cy.get('select[name="location"]').select(1);
+      cy.get('button').contains('Valider').click();
+      cy.contains('Alerte').should('exist');
+      cy.contains('stock').should('exist');
+    });
+
+    it('Rapports - Génération et envoi', () => {
+      cy.visit(baseUrl + '/reports');
+      cy.contains('Générer un rapport').click();
+      cy.contains('Envoyer par email').should('exist').click();
+      cy.contains('Email envoyé').should('exist');
+    });
+
+    it('Paramètres (SMTP, notifications, modèles)', () => {
+      cy.visit(baseUrl + '/settings');
+      if (user.canAccessSettings) {
+        cy.contains('Configuration SMTP').should('exist');
+        cy.get('input[placeholder="SMTP Host"]').clear().type('smtp.test.com');
+        cy.get('input[placeholder="SMTP Port"]').clear().type('587');
+        cy.get('input[placeholder="SMTP User (email)"]').clear().type('test@banque.com');
+        cy.get('input[placeholder="SMTP Password"]').clear().type('testpassword');
+        cy.get('button').contains('Enregistrer SMTP').click();
+        cy.contains('Paramètres SMTP enregistrés').should('exist');
+        cy.contains('Modèles de notifications').click();
+        cy.get('button').contains('Enregistrer les modèles').click();
+        cy.contains('Modèles enregistrés').should('exist');
+      } else {
+        cy.contains('Configuration SMTP').should('not.exist');
+      }
+    });
+
+    it('Déconnexion', () => {
+      cy.get('button').contains('Déconnexion').click();
+      cy.url().should('include', '/login');
+    });
+  });
+});

@@ -1,0 +1,199 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  password    String
+  firstName   String
+  lastName    String
+  role        Role?    @relation(fields: [roleId], references: [id])
+  roleId      String?
+  bank        Bank?    @relation(fields: [bankId], references: [id])
+  bankId      String?
+  createdAt   DateTime @default(now())
+  lastLogin   DateTime?
+  profileImage String? // <--- AJOUTE CETTE LIGNE
+  address     String?
+  city        String?
+  postalCode  String?
+  country     String?
+  department  String?
+  position    String?
+  manager     String?
+  preferences Json?
+  privacy     Json?
+  movements   Movement[]
+  auditLogs   AuditLog[]
+  notificationSettings NotificationSetting[]
+  notifications Notification[]
+  sessions     Session[] // <-- Ajout de la relation inverse
+  // Ajout relation avec Role
+  // roleId: String?
+}
+
+model Role {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  description String
+  users       User[]
+  permissions Permission[] @relation("RolePermissions")
+}
+
+model Permission {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String
+  category    String
+  resource    String
+  action      String
+  roles       Role[]    @relation("RolePermissions")
+}
+
+model Bank {
+  id        String     @id @default(uuid())
+  name      String
+  address   String
+  bankCode  String     @unique
+  locations Location[]
+  users     User[]
+  cardTypes CardType[]
+  createdAt DateTime   @default(now())
+}
+
+model Location {
+  id            String    @id @default(uuid())
+  name          String
+  address       String    // Finalement rendu obligatoire
+  bank          Bank      @relation(fields: [bankId], references: [id])
+  bankId        String
+  maxCapacity   Int?
+  securityLevel String?   // Ajout du niveau de sécurité
+  description   String?   // Ajout de la description
+  stock         Stock[]
+  movements     Movement[] @relation("LocationMovements")
+  destMovements Movement[] @relation("MovementDestLocation")
+  createdAt     DateTime  @default(now())
+  modifiedAt    DateTime? @updatedAt // Ajout de la date de modification automatique
+}
+
+model CardType {
+  id        String   @id @default(uuid())
+  name      String
+  subType   String?
+  subSubType String?
+  description String?
+  specificities String?
+  contact   String?
+  bank      Bank     @relation(fields: [bankId], references: [id])
+  bankId    String
+  stock     Stock[]
+  movements Movement[]
+  createdAt DateTime @default(now())
+}
+
+model Stock {
+  id         String   @id @default(uuid())
+  location   Location @relation(fields: [locationId], references: [id])
+  locationId String
+  cardType   CardType @relation(fields: [cardTypeId], references: [id])
+  cardTypeId String
+  quantity   Int
+  alertThreshold Int? @default(0) // <--- AJOUTE CETTE LIGNE
+  lastUpdate DateTime @updatedAt
+
+  @@unique([locationId, cardTypeId])
+}
+
+model Movement {
+  id            String   @id @default(uuid())
+  type          String   // entree, sortie, transfert
+  quantity      Int
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+  cardType      CardType @relation(fields: [cardTypeId], references: [id])
+  cardTypeId    String
+  location      Location @relation("LocationMovements", fields: [locationId], references: [id])
+  locationId    String
+  destLocation  Location? @relation("MovementDestLocation", fields: [destLocationId], references: [id])
+  destLocationId String?
+  referenceNumber String?  // Ajout du numéro de référence
+  notes         String?  // Ajout des notes
+  attachments   Json?    // Ajout des pièces jointes
+  createdAt     DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  action    String
+  resource  String
+  details   String?
+  ip        String?
+  type      String   // success, error, info
+  timestamp DateTime @default(now())
+}
+
+model Report {
+  id        String   @id @default(uuid())
+  type      String   // ex: "stock", "mouvements", etc.
+  content   String   // JSON, ou chemin vers un fichier généré
+  createdAt DateTime @default(now())
+  createdBy String?  // id de l'utilisateur qui a généré le rapport
+}
+
+model Settings {
+  id    String @id @default(uuid())
+  key   String @unique
+  value String
+}
+
+model BankImportHistory {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  userId    String
+  stats     Json
+  pdfPath   String // chemin local du rapport PDF
+}
+
+model NotificationSetting {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  settings  Json     // { mouvement: true, rapport: false, ... }
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  title     String
+  message   String
+  type      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  createdAt    DateTime @default(now())
+  lastActivity DateTime @updatedAt
+  ip           String?
+  userAgent    String?
+  revoked      Boolean  @default(false)
+}
