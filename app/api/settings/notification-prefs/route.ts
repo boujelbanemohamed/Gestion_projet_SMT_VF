@@ -3,8 +3,12 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// Mock userId (à remplacer par l'utilisateur connecté)
-const userId = "demo-user-id";
+// Correction : récupérer dynamiquement un userId existant si l'utilisateur connecté n'est pas géré
+async function getValidUserId() {
+  // À remplacer par la vraie logique d'auth si disponible
+  const user = await prisma.user.findFirst();
+  return user ? user.id : null;
+}
 
 export async function GET(req: NextRequest) {
   // Si ?recipients=1, retourne la liste des utilisateurs pour la sélection
@@ -14,6 +18,10 @@ export async function GET(req: NextRequest) {
       select: { id: true, firstName: true, lastName: true, email: true, role: true }
     });
     return NextResponse.json({ users });
+  }
+  const userId = await getValidUserId();
+  if (!userId) {
+    return NextResponse.json({ error: "Aucun utilisateur trouvé en base." }, { status: 500 });
   }
   let notif = await prisma.notificationSetting.findUnique({ where: { userId } });
   if (!notif) {
@@ -30,6 +38,10 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const { settings, recipients } = await req.json();
+  const userId = await getValidUserId();
+  if (!userId) {
+    return NextResponse.json({ error: "Aucun utilisateur trouvé en base." }, { status: 500 });
+  }
   await prisma.notificationSetting.upsert({
     where: { userId },
     update: { settings },
