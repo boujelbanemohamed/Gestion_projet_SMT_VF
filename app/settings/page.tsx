@@ -195,34 +195,30 @@ export default function SettingsPage() {
 
   // Charger les préférences de notification et la liste des utilisateurs au mount
   useEffect(() => {
-    fetch("/api/settings/notification-prefs").then(res => res.json()).then(data => {
-      if (data && data.settings) setNotifPrefs(data.settings);
-      if (data && data.recipients) {
-        try {
-          if (typeof data.recipients === 'string' && data.recipients.trim() !== "" && (/^\s*[{[]/.test(data.recipients))) {
-            let parsed = null;
-            try {
-              parsed = JSON.parse(data.recipients);
-            } catch (e) {
-              console.warn("Erreur JSON.parse sur data.recipients:", data.recipients, e);
-            }
-            if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
-              setRecipients(parsed);
-            } else {
-              setRecipients({ admins: false, operateurs: false, users: [] });
-            }
-          } else if (typeof data.recipients === 'object' && data.recipients !== null) {
-            setRecipients(data.recipients);
-          } else {
-            setRecipients({ admins: false, operateurs: false, users: [] });
-          }
-        } catch (e) {
-          setRecipients({ admins: false, operateurs: false, users: [] });
+    fetch("/api/settings/notification-prefs")
+      .then(async res => {
+        if (!res.ok) {
+          throw new Error("Erreur API: " + res.status);
         }
-      } else {
-        setRecipients({ admins: false, operateurs: false, users: [] });
-      }
-    });
+        const text = await res.text();
+        if (!text) return {};
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          return {};
+        }
+      })
+      .then(data => {
+        if (data && data.settings) setNotifPrefs(data.settings);
+        if (data && data.recipients) {
+          try {
+            setRecipients(data.recipients);
+          } catch (e) {}
+        }
+      })
+      .catch(err => {
+        console.error("Erreur lors du chargement des préférences de notification :", err);
+      });
     setUsersLoading(true);
     fetch("/api/settings/notification-prefs?recipients=1")
       .then(res => res.json())
