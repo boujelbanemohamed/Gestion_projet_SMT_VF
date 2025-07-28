@@ -976,13 +976,13 @@ export default function LocationsPage() {
                           return (
                             <TableRow key={stockItem.id}>
                               <TableCell>
-                                <Badge variant="outline">{cardType?.type}</Badge>
+                                <Badge variant="outline">{cardType?.name || "N/A"}</Badge>
                               </TableCell>
                               <TableCell>
-                                <Badge variant="secondary">{cardType?.subType}</Badge>
+                                <Badge variant="secondary">{cardType?.subType || "N/A"}</Badge>
                               </TableCell>
                               <TableCell>
-                                <Badge variant="outline">{cardType?.subSubType}</Badge>
+                                <Badge variant="outline">{cardType?.subSubType || "N/A"}</Badge>
                               </TableCell>
                               <TableCell className="text-right font-mono">{typeof stockItem.quantity === 'number' ? stockItem.quantity.toLocaleString() : '-'}</TableCell>
                             </TableRow>

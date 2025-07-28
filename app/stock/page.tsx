@@ -193,9 +193,10 @@ export default function StockPage() {
   // Données enrichies avec les informations des relations
   const enrichedStock = useMemo(() => {
     return stock.map((stockItem) => {
-      const location = locations.find((l) => l.id === stockItem.locationId);
-      const bank = location ? banks.find((b) => b.id === location.bankId) : null;
-      const cardType = cardTypes.find((c) => c.id === stockItem.cardTypeId);
+      const location = stockItem.location || locations.find((l) => l.id === stockItem.locationId);
+      const bank = location ? (location.bank || banks.find((b) => b.id === location.bankId)) : null;
+      // Priorité à cardType déjà présent (de l'API), sinon enrichir
+      const cardType = stockItem.cardType || cardTypes.find((c) => c.id === stockItem.cardTypeId) || null;
       return {
         ...stockItem,
         location,
@@ -509,13 +510,13 @@ export default function StockPage() {
                   <TableCell className="font-medium">{item.bank?.name}</TableCell>
                   <TableCell>{item.location?.name}</TableCell>
                   <TableCell>
-                    <Badge variant="outline">{item.cardType?.type}</Badge>
+                    <Badge variant="outline">{item.cardType?.type || "N/A"}</Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="secondary">{item.cardType?.subType}</Badge>
+                    <Badge variant="secondary">{item.cardType?.subType || "N/A"}</Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline">{item.cardType?.subSubType}</Badge>
+                    <Badge variant="outline">{item.cardType?.subSubType || "N/A"}</Badge>
                   </TableCell>
                   <TableCell className="text-right font-mono">{item.quantity.toLocaleString()}</TableCell>
                     <TableCell>

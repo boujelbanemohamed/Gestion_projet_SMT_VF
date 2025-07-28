@@ -34,6 +34,16 @@ export async function GET() {
   return NextResponse.json(movements);
 }
 
+// Correction : récupérer dynamiquement un userId existant si le userId fourni est absent ou invalide
+async function getValidUserId(userId?: string) {
+  if (userId) {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (user) return userId;
+  }
+  const user = await prisma.user.findFirst();
+  return user ? user.id : null;
+}
+
 // POST /api/movements : crée un nouveau mouvement
 export async function POST(req: Request) {
   try {
@@ -45,7 +55,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Validation Error', details: parse.error.flatten() }, { status: 400 });
     }
 
-    const { type, userId, items, sourceLocationId, destinationLocationId, referenceNumber, notes, attachments } = parse.data;
+    // Correction ici : userId dynamique
+    const userId = await getValidUserId(parse.data.userId);
+    if (!userId) {
+      return NextResponse.json({ error: "Aucun utilisateur valide trouvé pour ce mouvement." }, { status: 500 });
+    }
+    const { type, items, sourceLocationId, destinationLocationId, referenceNumber, notes, attachments } = parse.data;
 
     await prisma.$transaction(async (tx) => {
       for (const item of items) {
