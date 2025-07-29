@@ -1,0 +1,1288 @@
+{
+  "roles": [
+    {
+      "id": "5d939faf-58c8-4938-9ef1-b0d3bde63d5a",
+      "name": "Lecteur",
+      "description": "Lecture seule des rapports et stocks"
+    },
+    {
+      "id": "4b5a8be2-f161-409a-949d-559fdf21a008",
+      "name": "Super Admin",
+      "description": "Accès illimité à toutes les fonctionnalités"
+    },
+    {
+      "id": "9e836788-bda5-47fc-b9a9-794e85c7e067",
+      "name": "Admin",
+      "description": "Accès complet sauf gestion des Super Admin"
+    },
+    {
+      "id": "c8a93d17-cb13-4328-99fb-1b1cf61a3fab",
+      "name": "Opérateur",
+      "description": "Gestion des stocks et mouvements"
+    }
+  ],
+  "permissions": [
+    {
+      "id": "159ecf42-e1b4-4ca8-b191-21c3a427452f",
+      "name": "stock.view",
+      "description": "Voir le stock",
+      "category": "Stock",
+      "resource": "stock",
+      "action": "view"
+    },
+    {
+      "id": "cd9d0eca-1aad-4ddb-af1d-733f2e8f51c7",
+      "name": "stock.create",
+      "description": "Créer des entrées",
+      "category": "Stock",
+      "resource": "stock",
+      "action": "create"
+    },
+    {
+      "id": "b794b7bd-00e1-45f2-aece-772e93dc48ab",
+      "name": "stock.update",
+      "description": "Modifier le stock",
+      "category": "Stock",
+      "resource": "stock",
+      "action": "update"
+    },
+    {
+      "id": "ca7362dd-003b-4d90-b701-ca28c8feead0",
+      "name": "stock.delete",
+      "description": "Supprimer du stock",
+      "category": "Stock",
+      "resource": "stock",
+      "action": "delete"
+    },
+    {
+      "id": "1c51dca0-fc1d-424a-8088-247962475f2e",
+      "name": "stock.transfer",
+      "description": "Transférer le stock",
+      "category": "Stock",
+      "resource": "stock",
+      "action": "transfer"
+    },
+    {
+      "id": "a476dbe5-1785-4774-94f7-439758ec4158",
+      "name": "users.view",
+      "description": "Voir les utilisateurs",
+      "category": "Utilisateurs",
+      "resource": "users",
+      "action": "view"
+    },
+    {
+      "id": "7e2fcd76-3447-4192-9129-3c3cabbd5783",
+      "name": "users.create",
+      "description": "Créer des utilisateurs",
+      "category": "Utilisateurs",
+      "resource": "users",
+      "action": "create"
+    },
+    {
+      "id": "f5d8d2e6-2999-46fa-860a-7a6829c5385b",
+      "name": "users.update",
+      "description": "Modifier les utilisateurs",
+      "category": "Utilisateurs",
+      "resource": "users",
+      "action": "update"
+    },
+    {
+      "id": "ec654d55-366f-4a9b-90ed-5bcc9bd2d7bc",
+      "name": "users.delete",
+      "description": "Supprimer des utilisateurs",
+      "category": "Utilisateurs",
+      "resource": "users",
+      "action": "delete"
+    },
+    {
+      "id": "52949b43-2426-4c29-9182-07b81467378b",
+      "name": "reports.view",
+      "description": "Voir les rapports",
+      "category": "Rapports",
+      "resource": "reports",
+      "action": "view"
+    },
+    {
+      "id": "9e3f48d0-2ad8-4cd7-9b20-6b3c81117123",
+      "name": "reports.export",
+      "description": "Exporter les rapports",
+      "category": "Rapports",
+      "resource": "reports",
+      "action": "export"
+    },
+    {
+      "id": "405319ea-8341-4634-8c94-44906fff86d6",
+      "name": "locations.view",
+      "description": "Voir les emplacements",
+      "category": "Emplacements",
+      "resource": "locations",
+      "action": "view"
+    },
+    {
+      "id": "c3e2faed-0782-4995-a3e0-49b3c97dacf9",
+      "name": "locations.manage",
+      "description": "Gérer les emplacements",
+      "category": "Emplacements",
+      "resource": "locations",
+      "action": "manage"
+    },
+    {
+      "id": "311b6a7c-8c7e-43bd-b589-f280c70b734b",
+      "name": "system.admin",
+      "description": "Administration système",
+      "category": "Système",
+      "resource": "system",
+      "action": "admin"
+    },
+    {
+      "id": "2be12497-60b8-4bb4-8b7b-3280e3790476",
+      "name": "audit.view",
+      "description": "Voir les logs d'audit",
+      "category": "Système",
+      "resource": "audit",
+      "action": "view"
+    },
+    {
+      "id": "0b71d7cd-7f3b-4091-a389-c0087efa5c33",
+      "name": "attachments.view",
+      "description": "Voir les pièces jointes",
+      "category": "Pièces jointes",
+      "resource": "attachments",
+      "action": "view"
+    },
+    {
+      "id": "d5c6e003-1c08-4019-9218-e8103526fab6",
+      "name": "attachments.upload",
+      "description": "Ajouter des pièces jointes",
+      "category": "Pièces jointes",
+      "resource": "attachments",
+      "action": "upload"
+    },
+    {
+      "id": "d1373c9f-a079-400b-a5e2-c22f80f171ce",
+      "name": "attachments.delete",
+      "description": "Supprimer des pièces jointes",
+      "category": "Pièces jointes",
+      "resource": "attachments",
+      "action": "delete"
+    }
+  ],
+  "users": [
+    {
+      "id": "1dcf7b0b-cb4f-466f-ad36-8d459590c924",
+      "email": "mboujelbane33@gmail.com",
+      "password": "azerty123",
+      "firstName": "Mohamed",
+      "lastName": "Boujelbane",
+      "roleId": null,
+      "bankId": null,
+      "createdAt": "2025-07-22T12:39:09.154Z",
+      "lastLogin": null,
+      "profileImage": null,
+      "address": null,
+      "city": null,
+      "postalCode": null,
+      "country": null,
+      "department": null,
+      "position": null,
+      "manager": null,
+      "preferences": null,
+      "privacy": null,
+      "role": null
+    },
+    {
+      "id": "91c4f231-a633-4164-a4dd-deecd6856e35",
+      "email": "houssemchabir2003@gmail.com",
+      "password": "azerty123",
+      "firstName": "Houssem",
+      "lastName": "Chabir",
+      "roleId": null,
+      "bankId": null,
+      "createdAt": "2025-07-22T12:15:09.977Z",
+      "lastLogin": "2025-07-24T10:43:49.459Z",
+      "profileImage": null,
+      "address": null,
+      "city": null,
+      "postalCode": null,
+      "country": null,
+      "department": null,
+      "position": null,
+      "manager": null,
+      "preferences": null,
+      "privacy": null,
+      "role": null
+    },
+    {
+      "id": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "email": "boujelbane@gmail.com",
+      "password": "azerty123",
+      "firstName": "Mohamed",
+      "lastName": "Boujelbane",
+      "roleId": null,
+      "bankId": null,
+      "createdAt": "2025-07-22T12:36:51.186Z",
+      "lastLogin": "2025-07-28T11:50:09.724Z",
+      "profileImage": "/uploads/1753202224832-photo profile.jpg",
+      "address": null,
+      "city": null,
+      "postalCode": null,
+      "country": null,
+      "department": null,
+      "position": null,
+      "manager": null,
+      "preferences": null,
+      "privacy": null,
+      "role": null
+    }
+  ],
+  "banks": [
+    {
+      "id": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+      "name": "BNA",
+      "address": "Ave Mohamed V, Tunis 1002",
+      "bankCode": "103",
+      "createdAt": "2025-07-22T14:39:50.064Z"
+    },
+    {
+      "id": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+      "name": "UBCI",
+      "address": "Megrine Coteaux Coin Avenue Habib Bourguiba et Avenue de Paris, Tunis",
+      "bankCode": "111",
+      "createdAt": "2025-07-22T14:55:15.095Z"
+    },
+    {
+      "id": "2d90da99-4868-4655-965e-7e751da82600",
+      "name": "TSB",
+      "address": "73 Avenue Habib Bourguiba, Manouba 2010",
+      "bankCode": "121",
+      "createdAt": "2025-07-23T12:07:59.283Z"
+    },
+    {
+      "id": "5244bedd-3fa0-469d-8390-b9221da48374",
+      "name": "ZITOUNA",
+      "address": "2 Boulevard Qualité de la Vie, Kram 2015, Tunis",
+      "bankCode": "125",
+      "createdAt": "2025-07-23T12:47:22.213Z"
+    },
+    {
+      "id": "d777ed0e-3132-456a-8d84-cdc2321ca9c3",
+      "name": "WIFAK",
+      "address": "Avenue Habib Bourguiba, 4100, Médenine",
+      "bankCode": "147",
+      "createdAt": "2025-07-23T12:47:22.217Z"
+    },
+    {
+      "id": "0f8833d8-91e5-49f0-8304-69fc88d2b1d0",
+      "name": "UIB",
+      "address": "25, Av. H. Bourguiba, 1001, Tunis",
+      "bankCode": "112",
+      "createdAt": "2025-07-23T12:47:22.219Z"
+    },
+    {
+      "id": "58426761-fd4d-47e7-9827-a483e699b1bd",
+      "name": "TIB",
+      "address": "4 Av. Des Etats Unis, 1002, Tunis",
+      "bankCode": "173",
+      "createdAt": "2025-07-23T12:47:22.220Z"
+    },
+    {
+      "id": "e8655d81-3eac-4310-8ac4-f660fc30ac4e",
+      "name": "STB",
+      "address": "Rue Hedi Nouira, 1001, Tunis",
+      "bankCode": "110",
+      "createdAt": "2025-07-23T12:47:22.222Z"
+    },
+    {
+      "id": "5d523c77-c1a9-4ab7-9a16-71fc5763a22c",
+      "name": "STAROIL",
+      "address": "Immeuble ST2i , Résidense Sidi Mansour III Bloc A, 1053, Tunis",
+      "bankCode": "194",
+      "createdAt": "2025-07-23T12:47:22.224Z"
+    },
+    {
+      "id": "5c5f579c-225c-4b52-9a30-a782db4fea6f",
+      "name": "SODEXO",
+      "address": "9 Rue Mohamed Ali Annabi, 1002, Tunis",
+      "bankCode": "198",
+      "createdAt": "2025-07-23T12:47:22.225Z"
+    },
+    {
+      "id": "5a44bfa1-c35d-44e1-aa56-d6afdbe73534",
+      "name": "SERVIMAX",
+      "address": "6 Av. Kheireddine Pacha, 1002, Tunis",
+      "bankCode": "196",
+      "createdAt": "2025-07-23T12:47:22.227Z"
+    },
+    {
+      "id": "e77aaaf2-dc9f-4057-96dd-d19a1ca624a5",
+      "name": "ONP",
+      "address": "Rue Hédi Nouira, 1030, Tunis",
+      "bankCode": "117",
+      "createdAt": "2025-07-23T12:47:22.228Z"
+    },
+    {
+      "id": "7215a429-e6da-40d5-88ef-634bc9f549ad",
+      "name": "NAIB",
+      "address": "Rue Abou Baker El Chahed, Cité Monplaisir et Borgel, 1002, Tunis",
+      "bankCode": "133",
+      "createdAt": "2025-07-23T12:47:22.230Z"
+    },
+    {
+      "id": "bf6d8908-5351-4417-95b1-be9b8eafd4b5",
+      "name": "BTS",
+      "address": "56 Ave Mohamed V, Tunis 1002",
+      "bankCode": "127",
+      "createdAt": "2025-07-23T12:47:22.232Z"
+    },
+    {
+      "id": "e51f8ecf-d2b3-4786-b992-b256fe09a22e",
+      "name": "BTL",
+      "address": "Immeuble BTL Boulevard de la Terre – Lot AFH E12 – Centre Urbain Nord, 1082, Tunis",
+      "bankCode": "126",
+      "createdAt": "2025-07-23T12:47:22.233Z"
+    },
+    {
+      "id": "d71d2dfe-c094-451d-b557-f69a51266fde",
+      "name": "BTK",
+      "address": "10 Ave Mohamed V, Tunis 1001",
+      "bankCode": "120",
+      "createdAt": "2025-07-23T12:47:22.234Z"
+    },
+    {
+      "id": "effa7c52-b9a4-44b8-9ab8-2bd024538314",
+      "name": "BTE",
+      "address": "Boulevard Beji Caid Essebsi - Lot AFH – BC8 -Centre Urbain Nord,1082, Tunis",
+      "bankCode": "124",
+      "createdAt": "2025-07-23T12:47:22.235Z"
+    },
+    {
+      "id": "ce1f5f97-240a-4f76-848f-2d24a69764eb",
+      "name": "BT",
+      "address": "2 rue de Turquie, 1001, Tunis",
+      "bankCode": "105",
+      "createdAt": "2025-07-23T12:47:22.236Z"
+    },
+    {
+      "id": "b0761e36-60db-41d1-a9b9-195cd8012897",
+      "name": "QNB",
+      "address": "Rue La Cité des Sciences à Tunis, Tunis",
+      "bankCode": "123",
+      "createdAt": "2025-07-23T12:47:22.237Z"
+    },
+    {
+      "id": "535d5cbf-8c99-4afe-80a7-7029b4617d7d",
+      "name": "BIAT",
+      "address": "70-72 Av Habib Bourghiba, 1000, TUNIS",
+      "bankCode": "108",
+      "createdAt": "2025-07-23T12:47:22.238Z"
+    },
+    {
+      "id": "50a002f2-0155-4732-b4ed-f30987919809",
+      "name": "BH",
+      "address": "8 Avenue Mohamed V, 1002 Tunis",
+      "bankCode": "114",
+      "createdAt": "2025-07-23T12:47:22.239Z"
+    },
+    {
+      "id": "dfaba845-7196-4c1a-bf83-056d47645c20",
+      "name": "BEA",
+      "address": "11 Boulevard Colonel Amirouche, Alger",
+      "bankCode": "142",
+      "createdAt": "2025-07-23T12:47:22.241Z"
+    },
+    {
+      "id": "05f50325-bc41-4deb-9bbc-9bb78fe4ea83",
+      "name": "BCT",
+      "address": "25 rue Hédi Nouira, 1080, Tunis",
+      "bankCode": "150",
+      "createdAt": "2025-07-23T12:47:22.241Z"
+    },
+    {
+      "id": "c0711ea4-2ee2-4c54-84d6-adfdf4de029a",
+      "name": "ATB",
+      "address": "9 Rue Hédi Nouira, 1001, Tunis",
+      "bankCode": "101",
+      "createdAt": "2025-07-23T12:47:22.242Z"
+    },
+    {
+      "id": "dadf3ba0-bf94-4c27-ba5c-02bd27a90454",
+      "name": "AMEN",
+      "address": "Avenue Mohamed V - 1002 Tunis",
+      "bankCode": "107",
+      "createdAt": "2025-07-23T12:47:22.244Z"
+    },
+    {
+      "id": "e4b2e2da-d54d-4917-b70c-7dbc3a457aac",
+      "name": "ALBARAKA",
+      "address": "88 avenue Hédi Chaker, 1002, Tunis",
+      "bankCode": "132",
+      "createdAt": "2025-07-23T12:47:22.245Z"
+    },
+    {
+      "id": "5ed64c7b-af2d-4fa5-b520-75f317041edb",
+      "name": "ABC",
+      "address": "Rue du Lac d'Annecy, 1053, Tunis",
+      "bankCode": "128",
+      "createdAt": "2025-07-23T12:47:22.246Z"
+    }
+  ],
+  "locations": [
+    {
+      "id": "979b9740-4daf-4844-afc9-33bf9499a02f",
+      "name": "Salle perso ",
+      "address": "SMT",
+      "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+      "maxCapacity": 10000,
+      "securityLevel": "Niveau 4",
+      "description": "Salle perso BNA",
+      "createdAt": "2025-07-22T15:34:53.095Z",
+      "modifiedAt": "2025-07-22T15:34:53.095Z",
+      "bank": {
+        "id": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "name": "BNA",
+        "address": "Ave Mohamed V, Tunis 1002",
+        "bankCode": "103",
+        "createdAt": "2025-07-22T14:39:50.064Z"
+      }
+    },
+    {
+      "id": "5e72e722-e686-436c-b953-8c262a724629",
+      "name": "Coffre Fort BNA",
+      "address": "SMT",
+      "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+      "maxCapacity": 10000,
+      "securityLevel": "Niveau 4",
+      "description": "Coffre Fort SMT pour la BNA",
+      "createdAt": "2025-07-22T15:27:16.000Z",
+      "modifiedAt": "2025-07-22T15:45:37.154Z",
+      "bank": {
+        "id": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "name": "BNA",
+        "address": "Ave Mohamed V, Tunis 1002",
+        "bankCode": "103",
+        "createdAt": "2025-07-22T14:39:50.064Z"
+      }
+    },
+    {
+      "id": "1e382d57-0fc5-4c44-a99b-74e565930172",
+      "name": "Coffre Fort UBCI",
+      "address": "SMT",
+      "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+      "maxCapacity": 10000,
+      "securityLevel": "Niveau 4",
+      "description": "Coffre Fort SMT pour l'UBCI",
+      "createdAt": "2025-07-22T15:27:16.004Z",
+      "modifiedAt": "2025-07-22T15:45:43.217Z",
+      "bank": {
+        "id": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "name": "UBCI",
+        "address": "Megrine Coteaux Coin Avenue Habib Bourguiba et Avenue de Paris, Tunis",
+        "bankCode": "111",
+        "createdAt": "2025-07-22T14:55:15.095Z"
+      }
+    },
+    {
+      "id": "f0080d91-bda7-4320-9c79-dbf17e756ddf",
+      "name": "Salle Perso UBCI",
+      "address": "SMT",
+      "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+      "maxCapacity": 10000,
+      "securityLevel": "Niveau 4",
+      "description": "Salle Perso",
+      "createdAt": "2025-07-22T15:48:28.185Z",
+      "modifiedAt": "2025-07-22T15:48:45.130Z",
+      "bank": {
+        "id": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "name": "UBCI",
+        "address": "Megrine Coteaux Coin Avenue Habib Bourguiba et Avenue de Paris, Tunis",
+        "bankCode": "111",
+        "createdAt": "2025-07-22T14:55:15.095Z"
+      }
+    },
+    {
+      "id": "7bd51b3e-ffff-490c-9450-0298a5613aaa",
+      "name": "Coffre  Fort Carte défecteuse",
+      "address": "SMT - Centre urbain",
+      "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+      "maxCapacity": 10000,
+      "securityLevel": "Niveau 4",
+      "description": "Coffre  Fort Carte défectueuse - BNA",
+      "createdAt": "2025-07-24T12:30:56.864Z",
+      "modifiedAt": "2025-07-24T12:30:56.864Z",
+      "bank": {
+        "id": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "name": "BNA",
+        "address": "Ave Mohamed V, Tunis 1002",
+        "bankCode": "103",
+        "createdAt": "2025-07-22T14:39:50.064Z"
+      }
+    }
+  ],
+  "cardTypes": [
+    {
+      "id": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+      "name": "Visa",
+      "subType": "Classic",
+      "subSubType": "National",
+      "description": "Visa Classic National",
+      "specificities": "NFC",
+      "contact": null,
+      "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+      "createdAt": "2025-07-22T16:23:18.455Z"
+    },
+    {
+      "id": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+      "name": "Visa",
+      "subType": "Gold",
+      "subSubType": "National",
+      "description": "Visa - Gold - National - BNA",
+      "specificities": "NFC - sans contact",
+      "contact": "",
+      "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+      "createdAt": "2025-07-24T12:32:17.458Z"
+    }
+  ],
+  "stock": [
+    {
+      "id": "d429d929-8681-4c7b-afdc-af44473143ed",
+      "locationId": "5e72e722-e686-436c-b953-8c262a724629",
+      "cardTypeId": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+      "quantity": 0,
+      "alertThreshold": 0,
+      "lastUpdate": "2025-07-24T12:46:26.385Z",
+      "location": {
+        "id": "5e72e722-e686-436c-b953-8c262a724629",
+        "name": "Coffre Fort BNA",
+        "address": "SMT",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Coffre Fort SMT pour la BNA",
+        "createdAt": "2025-07-22T15:27:16.000Z",
+        "modifiedAt": "2025-07-22T15:45:37.154Z"
+      },
+      "cardType": {
+        "id": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+        "name": "Visa",
+        "subType": "Gold",
+        "subSubType": "National",
+        "description": "Visa - Gold - National - BNA",
+        "specificities": "NFC - sans contact",
+        "contact": "",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "createdAt": "2025-07-24T12:32:17.458Z"
+      }
+    },
+    {
+      "id": "77d44611-aeea-4cf3-93a7-b19964ada0bd",
+      "locationId": "979b9740-4daf-4844-afc9-33bf9499a02f",
+      "cardTypeId": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+      "quantity": 0,
+      "alertThreshold": 0,
+      "lastUpdate": "2025-07-24T12:49:38.752Z",
+      "location": {
+        "id": "979b9740-4daf-4844-afc9-33bf9499a02f",
+        "name": "Salle perso ",
+        "address": "SMT",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Salle perso BNA",
+        "createdAt": "2025-07-22T15:34:53.095Z",
+        "modifiedAt": "2025-07-22T15:34:53.095Z"
+      },
+      "cardType": {
+        "id": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+        "name": "Visa",
+        "subType": "Gold",
+        "subSubType": "National",
+        "description": "Visa - Gold - National - BNA",
+        "specificities": "NFC - sans contact",
+        "contact": "",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "createdAt": "2025-07-24T12:32:17.458Z"
+      }
+    },
+    {
+      "id": "c2c5af96-8958-4d34-a07a-056dde892454",
+      "locationId": "1e382d57-0fc5-4c44-a99b-74e565930172",
+      "cardTypeId": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+      "quantity": 0,
+      "alertThreshold": 100,
+      "lastUpdate": "2025-07-28T12:25:57.112Z",
+      "location": {
+        "id": "1e382d57-0fc5-4c44-a99b-74e565930172",
+        "name": "Coffre Fort UBCI",
+        "address": "SMT",
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Coffre Fort SMT pour l'UBCI",
+        "createdAt": "2025-07-22T15:27:16.004Z",
+        "modifiedAt": "2025-07-22T15:45:43.217Z"
+      },
+      "cardType": {
+        "id": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+        "name": "Visa",
+        "subType": "Classic",
+        "subSubType": "National",
+        "description": "Visa Classic National",
+        "specificities": "NFC",
+        "contact": null,
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "createdAt": "2025-07-22T16:23:18.455Z"
+      }
+    },
+    {
+      "id": "0462e4c2-b7ad-4a5a-a0cf-828c20463c87",
+      "locationId": "f0080d91-bda7-4320-9c79-dbf17e756ddf",
+      "cardTypeId": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+      "quantity": 0,
+      "alertThreshold": 0,
+      "lastUpdate": "2025-07-28T12:27:00.647Z",
+      "location": {
+        "id": "f0080d91-bda7-4320-9c79-dbf17e756ddf",
+        "name": "Salle Perso UBCI",
+        "address": "SMT",
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Salle Perso",
+        "createdAt": "2025-07-22T15:48:28.185Z",
+        "modifiedAt": "2025-07-22T15:48:45.130Z"
+      },
+      "cardType": {
+        "id": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+        "name": "Visa",
+        "subType": "Classic",
+        "subSubType": "National",
+        "description": "Visa Classic National",
+        "specificities": "NFC",
+        "contact": null,
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "createdAt": "2025-07-22T16:23:18.455Z"
+      }
+    }
+  ],
+  "movements": [
+    {
+      "id": "237f5017-a4a3-4c79-a010-3a01135cf7af",
+      "type": "ENTREE",
+      "quantity": 10,
+      "userId": "1dcf7b0b-cb4f-466f-ad36-8d459590c924",
+      "cardTypeId": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+      "locationId": "5e72e722-e686-436c-b953-8c262a724629",
+      "destLocationId": null,
+      "referenceNumber": "ENT-2025-001",
+      "notes": "Visa Gold National",
+      "attachments": [],
+      "createdAt": "2025-07-24T12:40:09.618Z",
+      "user": {
+        "id": "1dcf7b0b-cb4f-466f-ad36-8d459590c924",
+        "email": "mboujelbane33@gmail.com",
+        "password": "azerty123",
+        "firstName": "Mohamed",
+        "lastName": "Boujelbane",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:39:09.154Z",
+        "lastLogin": null,
+        "profileImage": null,
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      },
+      "location": {
+        "id": "5e72e722-e686-436c-b953-8c262a724629",
+        "name": "Coffre Fort BNA",
+        "address": "SMT",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Coffre Fort SMT pour la BNA",
+        "createdAt": "2025-07-22T15:27:16.000Z",
+        "modifiedAt": "2025-07-22T15:45:37.154Z"
+      },
+      "cardType": {
+        "id": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+        "name": "Visa",
+        "subType": "Gold",
+        "subSubType": "National",
+        "description": "Visa - Gold - National - BNA",
+        "specificities": "NFC - sans contact",
+        "contact": "",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "createdAt": "2025-07-24T12:32:17.458Z"
+      }
+    },
+    {
+      "id": "3e88d86e-88b7-4051-ab53-1548fd17942e",
+      "type": "TRANSFERT",
+      "quantity": 10,
+      "userId": "1dcf7b0b-cb4f-466f-ad36-8d459590c924",
+      "cardTypeId": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+      "locationId": "5e72e722-e686-436c-b953-8c262a724629",
+      "destLocationId": "979b9740-4daf-4844-afc9-33bf9499a02f",
+      "referenceNumber": "TRA-2025-001",
+      "notes": "",
+      "attachments": [],
+      "createdAt": "2025-07-24T12:46:26.393Z",
+      "user": {
+        "id": "1dcf7b0b-cb4f-466f-ad36-8d459590c924",
+        "email": "mboujelbane33@gmail.com",
+        "password": "azerty123",
+        "firstName": "Mohamed",
+        "lastName": "Boujelbane",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:39:09.154Z",
+        "lastLogin": null,
+        "profileImage": null,
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      },
+      "location": {
+        "id": "5e72e722-e686-436c-b953-8c262a724629",
+        "name": "Coffre Fort BNA",
+        "address": "SMT",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Coffre Fort SMT pour la BNA",
+        "createdAt": "2025-07-22T15:27:16.000Z",
+        "modifiedAt": "2025-07-22T15:45:37.154Z"
+      },
+      "cardType": {
+        "id": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+        "name": "Visa",
+        "subType": "Gold",
+        "subSubType": "National",
+        "description": "Visa - Gold - National - BNA",
+        "specificities": "NFC - sans contact",
+        "contact": "",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "createdAt": "2025-07-24T12:32:17.458Z"
+      }
+    },
+    {
+      "id": "c798c59c-0411-406a-8663-8f730cdc9c8a",
+      "type": "SORTIE",
+      "quantity": 10,
+      "userId": "1dcf7b0b-cb4f-466f-ad36-8d459590c924",
+      "cardTypeId": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+      "locationId": "979b9740-4daf-4844-afc9-33bf9499a02f",
+      "destLocationId": null,
+      "referenceNumber": "SOR-2025-001",
+      "notes": "sortie",
+      "attachments": [],
+      "createdAt": "2025-07-24T12:49:38.753Z",
+      "user": {
+        "id": "1dcf7b0b-cb4f-466f-ad36-8d459590c924",
+        "email": "mboujelbane33@gmail.com",
+        "password": "azerty123",
+        "firstName": "Mohamed",
+        "lastName": "Boujelbane",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:39:09.154Z",
+        "lastLogin": null,
+        "profileImage": null,
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      },
+      "location": {
+        "id": "979b9740-4daf-4844-afc9-33bf9499a02f",
+        "name": "Salle perso ",
+        "address": "SMT",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Salle perso BNA",
+        "createdAt": "2025-07-22T15:34:53.095Z",
+        "modifiedAt": "2025-07-22T15:34:53.095Z"
+      },
+      "cardType": {
+        "id": "6c876c91-9d52-44c9-ab85-a733c29dc994",
+        "name": "Visa",
+        "subType": "Gold",
+        "subSubType": "National",
+        "description": "Visa - Gold - National - BNA",
+        "specificities": "NFC - sans contact",
+        "contact": "",
+        "bankId": "87aec84f-c471-4627-9b0c-1cdbc5c6e769",
+        "createdAt": "2025-07-24T12:32:17.458Z"
+      }
+    },
+    {
+      "id": "bdfbdbeb-03ab-4eb8-b2ba-da8954b90bc5",
+      "type": "ENTREE",
+      "quantity": 100,
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "cardTypeId": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+      "locationId": "1e382d57-0fc5-4c44-a99b-74e565930172",
+      "destLocationId": null,
+      "referenceNumber": "ENT-2025-002",
+      "notes": "test ",
+      "attachments": [],
+      "createdAt": "2025-07-28T11:51:10.770Z",
+      "user": {
+        "id": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+        "email": "boujelbane@gmail.com",
+        "password": "azerty123",
+        "firstName": "Mohamed",
+        "lastName": "Boujelbane",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:36:51.186Z",
+        "lastLogin": "2025-07-28T11:50:09.724Z",
+        "profileImage": "/uploads/1753202224832-photo profile.jpg",
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      },
+      "location": {
+        "id": "1e382d57-0fc5-4c44-a99b-74e565930172",
+        "name": "Coffre Fort UBCI",
+        "address": "SMT",
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Coffre Fort SMT pour l'UBCI",
+        "createdAt": "2025-07-22T15:27:16.004Z",
+        "modifiedAt": "2025-07-22T15:45:43.217Z"
+      },
+      "cardType": {
+        "id": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+        "name": "Visa",
+        "subType": "Classic",
+        "subSubType": "National",
+        "description": "Visa Classic National",
+        "specificities": "NFC",
+        "contact": null,
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "createdAt": "2025-07-22T16:23:18.455Z"
+      }
+    },
+    {
+      "id": "7e8771da-99ae-444e-973e-144d5b88cd90",
+      "type": "ENTREE",
+      "quantity": 100,
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "cardTypeId": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+      "locationId": "1e382d57-0fc5-4c44-a99b-74e565930172",
+      "destLocationId": null,
+      "referenceNumber": "ENT-2025-002",
+      "notes": "test ",
+      "attachments": [],
+      "createdAt": "2025-07-28T11:51:10.843Z",
+      "user": {
+        "id": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+        "email": "boujelbane@gmail.com",
+        "password": "azerty123",
+        "firstName": "Mohamed",
+        "lastName": "Boujelbane",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:36:51.186Z",
+        "lastLogin": "2025-07-28T11:50:09.724Z",
+        "profileImage": "/uploads/1753202224832-photo profile.jpg",
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      },
+      "location": {
+        "id": "1e382d57-0fc5-4c44-a99b-74e565930172",
+        "name": "Coffre Fort UBCI",
+        "address": "SMT",
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Coffre Fort SMT pour l'UBCI",
+        "createdAt": "2025-07-22T15:27:16.004Z",
+        "modifiedAt": "2025-07-22T15:45:43.217Z"
+      },
+      "cardType": {
+        "id": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+        "name": "Visa",
+        "subType": "Classic",
+        "subSubType": "National",
+        "description": "Visa Classic National",
+        "specificities": "NFC",
+        "contact": null,
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "createdAt": "2025-07-22T16:23:18.455Z"
+      }
+    },
+    {
+      "id": "3e4e11bc-9105-4102-ab9b-652a26f08225",
+      "type": "ENTREE",
+      "quantity": 100,
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "cardTypeId": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+      "locationId": "1e382d57-0fc5-4c44-a99b-74e565930172",
+      "destLocationId": null,
+      "referenceNumber": "ENT-2025-004",
+      "notes": "test 2",
+      "attachments": [],
+      "createdAt": "2025-07-28T11:51:57.904Z",
+      "user": {
+        "id": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+        "email": "boujelbane@gmail.com",
+        "password": "azerty123",
+        "firstName": "Mohamed",
+        "lastName": "Boujelbane",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:36:51.186Z",
+        "lastLogin": "2025-07-28T11:50:09.724Z",
+        "profileImage": "/uploads/1753202224832-photo profile.jpg",
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      },
+      "location": {
+        "id": "1e382d57-0fc5-4c44-a99b-74e565930172",
+        "name": "Coffre Fort UBCI",
+        "address": "SMT",
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Coffre Fort SMT pour l'UBCI",
+        "createdAt": "2025-07-22T15:27:16.004Z",
+        "modifiedAt": "2025-07-22T15:45:43.217Z"
+      },
+      "cardType": {
+        "id": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+        "name": "Visa",
+        "subType": "Classic",
+        "subSubType": "National",
+        "description": "Visa Classic National",
+        "specificities": "NFC",
+        "contact": null,
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "createdAt": "2025-07-22T16:23:18.455Z"
+      }
+    },
+    {
+      "id": "54bf8ccd-fa34-4ee6-9e46-e6d8793cf2d3",
+      "type": "TRANSFERT",
+      "quantity": 300,
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "cardTypeId": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+      "locationId": "1e382d57-0fc5-4c44-a99b-74e565930172",
+      "destLocationId": "f0080d91-bda7-4320-9c79-dbf17e756ddf",
+      "referenceNumber": "TRA-2025-002",
+      "notes": "test transfert",
+      "attachments": [],
+      "createdAt": "2025-07-28T12:25:57.119Z",
+      "user": {
+        "id": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+        "email": "boujelbane@gmail.com",
+        "password": "azerty123",
+        "firstName": "Mohamed",
+        "lastName": "Boujelbane",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:36:51.186Z",
+        "lastLogin": "2025-07-28T11:50:09.724Z",
+        "profileImage": "/uploads/1753202224832-photo profile.jpg",
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      },
+      "location": {
+        "id": "1e382d57-0fc5-4c44-a99b-74e565930172",
+        "name": "Coffre Fort UBCI",
+        "address": "SMT",
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Coffre Fort SMT pour l'UBCI",
+        "createdAt": "2025-07-22T15:27:16.004Z",
+        "modifiedAt": "2025-07-22T15:45:43.217Z"
+      },
+      "cardType": {
+        "id": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+        "name": "Visa",
+        "subType": "Classic",
+        "subSubType": "National",
+        "description": "Visa Classic National",
+        "specificities": "NFC",
+        "contact": null,
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "createdAt": "2025-07-22T16:23:18.455Z"
+      }
+    },
+    {
+      "id": "8e43966f-9a58-4691-a452-56d8a9233e97",
+      "type": "SORTIE",
+      "quantity": 300,
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "cardTypeId": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+      "locationId": "f0080d91-bda7-4320-9c79-dbf17e756ddf",
+      "destLocationId": null,
+      "referenceNumber": "SOR-2025-002",
+      "notes": "test sortie",
+      "attachments": [],
+      "createdAt": "2025-07-28T12:27:00.649Z",
+      "user": {
+        "id": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+        "email": "boujelbane@gmail.com",
+        "password": "azerty123",
+        "firstName": "Mohamed",
+        "lastName": "Boujelbane",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:36:51.186Z",
+        "lastLogin": "2025-07-28T11:50:09.724Z",
+        "profileImage": "/uploads/1753202224832-photo profile.jpg",
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      },
+      "location": {
+        "id": "f0080d91-bda7-4320-9c79-dbf17e756ddf",
+        "name": "Salle Perso UBCI",
+        "address": "SMT",
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "maxCapacity": 10000,
+        "securityLevel": "Niveau 4",
+        "description": "Salle Perso",
+        "createdAt": "2025-07-22T15:48:28.185Z",
+        "modifiedAt": "2025-07-22T15:48:45.130Z"
+      },
+      "cardType": {
+        "id": "59d12d0c-88a2-4cf1-be1c-d5aa217d473b",
+        "name": "Visa",
+        "subType": "Classic",
+        "subSubType": "National",
+        "description": "Visa Classic National",
+        "specificities": "NFC",
+        "contact": null,
+        "bankId": "7c8ed974-cc79-4dd8-9573-9292d4bd975f",
+        "createdAt": "2025-07-22T16:23:18.455Z"
+      }
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "70e1891a-bdb1-4637-b671-91c9a3227ab8",
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "action": "USER_LOGIN",
+      "resource": "auth",
+      "details": "Connexion réussie",
+      "ip": "::1",
+      "type": "success",
+      "timestamp": "2025-07-22T19:39:13.957Z"
+    },
+    {
+      "id": "df1fd72a-068d-4970-a91c-78a0c47af17b",
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "action": "USER_LOGIN",
+      "resource": "auth",
+      "details": "Connexion réussie",
+      "ip": "::1",
+      "type": "success",
+      "timestamp": "2025-07-22T19:41:47.855Z"
+    },
+    {
+      "id": "e300d6aa-c904-45de-8ff7-f0ef3d890281",
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "action": "USER_LOGIN",
+      "resource": "auth",
+      "details": "Connexion réussie",
+      "ip": "::1",
+      "type": "success",
+      "timestamp": "2025-07-23T07:27:10.283Z"
+    },
+    {
+      "id": "d337a4f6-aa48-4eb6-a946-020010067637",
+      "userId": "91c4f231-a633-4164-a4dd-deecd6856e35",
+      "action": "USER_LOGIN",
+      "resource": "auth",
+      "details": "Connexion réussie",
+      "ip": "::ffff:192.168.1.158",
+      "type": "success",
+      "timestamp": "2025-07-24T10:43:49.481Z"
+    },
+    {
+      "id": "be988242-005e-4b42-888d-3b243f98ec23",
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "action": "USER_LOGIN",
+      "resource": "auth",
+      "details": "Connexion réussie",
+      "ip": "::ffff:192.168.1.158",
+      "type": "success",
+      "timestamp": "2025-07-28T09:27:54.385Z"
+    },
+    {
+      "id": "35864a52-7f0d-4f36-af10-a0738c6b6bcb",
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "action": "USER_LOGIN",
+      "resource": "auth",
+      "details": "Connexion réussie",
+      "ip": "::ffff:192.168.1.158",
+      "type": "success",
+      "timestamp": "2025-07-28T11:50:09.745Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "a390bf64-5d35-4b0b-ae1d-e855770fd3ad",
+      "userId": "91c4f231-a633-4164-a4dd-deecd6856e35",
+      "createdAt": "2025-07-24T10:43:49.477Z",
+      "lastActivity": "2025-07-24T10:43:49.477Z",
+      "ip": "::ffff:192.168.1.158",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "revoked": false,
+      "user": {
+        "id": "91c4f231-a633-4164-a4dd-deecd6856e35",
+        "email": "houssemchabir2003@gmail.com",
+        "password": "azerty123",
+        "firstName": "Houssem",
+        "lastName": "Chabir",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:15:09.977Z",
+        "lastLogin": "2025-07-24T10:43:49.459Z",
+        "profileImage": null,
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      }
+    },
+    {
+      "id": "fa427e46-f72c-4dc6-940a-d8557a6b57ae",
+      "userId": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+      "createdAt": "2025-07-22T19:39:13.955Z",
+      "lastActivity": "2025-07-28T11:50:09.732Z",
+      "ip": "::ffff:192.168.1.158",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "revoked": false,
+      "user": {
+        "id": "3861b516-8e7e-4b39-8836-f84cb8f0b05a",
+        "email": "boujelbane@gmail.com",
+        "password": "azerty123",
+        "firstName": "Mohamed",
+        "lastName": "Boujelbane",
+        "roleId": null,
+        "bankId": null,
+        "createdAt": "2025-07-22T12:36:51.186Z",
+        "lastLogin": "2025-07-28T11:50:09.724Z",
+        "profileImage": "/uploads/1753202224832-photo profile.jpg",
+        "address": null,
+        "city": null,
+        "postalCode": null,
+        "country": null,
+        "department": null,
+        "position": null,
+        "manager": null,
+        "preferences": null,
+        "privacy": null
+      }
+    }
+  ],
+  "settings": [
+    {
+      "id": "5222dc7c-f71f-4d91-8f0c-bb454816e58e",
+      "key": "template_movement",
+      "value": "{\"subject\":\"Mouvement de stock\",\"body\":\"{user} a effectué un mouvement de type {type} de {quantity} cartes {cardName} à {location}.\",\"ui\":true,\"email\":false}"
+    },
+    {
+      "id": "98530156-6a0a-4dfb-bfdd-4f36b3c8ef62",
+      "key": "template_error",
+      "value": "{\"subject\":\"Erreur système\",\"body\":\"Erreur : {errorMessage} le {date}.\",\"ui\":true,\"email\":false}"
+    },
+    {
+      "id": "b6ce2841-7bb2-43c5-b343-b57dee62c54b",
+      "key": "template_report",
+      "value": "{\"subject\":\"Rapport généré\",\"body\":\"Un rapport de type {reportType} a été généré le {date}.\",\"ui\":true,\"email\":false}"
+    },
+    {
+      "id": "9f3ae592-057c-4ee4-972f-d2dc6f8e7c0a",
+      "key": "template_newAccount",
+      "value": "{\"subject\":\"Bienvenue sur la plateforme\",\"body\":\"Bonjour {firstName},\\n\\nVotre compte ({email}) a bien été créé.\\nMot de passe initial : {password}\\n\\nBienvenue !\",\"ui\":true,\"email\":true}"
+    },
+    {
+      "id": "0d96e819-b182-46ca-ba0c-d0ad56b5eea0",
+      "key": "smtp_user",
+      "value": "boujelbane@gmail.com"
+    },
+    {
+      "id": "167b0bf2-a213-4acf-bd77-1a339ab7e1f7",
+      "key": "smtp_port",
+      "value": "465"
+    },
+    {
+      "id": "780096e0-1ae9-4c2d-aba5-2f21cd711431",
+      "key": "smtp_host",
+      "value": "smtp.gmail.com"
+    },
+    {
+      "id": "7f4c2712-4b80-454f-bf57-1fb566dac2a4",
+      "key": "smtp_tls",
+      "value": "true"
+    },
+    {
+      "id": "1365671f-bb4b-45f5-ae26-029a6f604748",
+      "key": "smtp_password",
+      "value": "tfiy uaui pyxk mdjn"
+    }
+  ]
+}

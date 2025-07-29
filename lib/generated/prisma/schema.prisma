@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  password  String
+  firstName String
+  lastName  String
+  role      String // admin, operateur, auditeur, etc.
+  bank      Bank?      @relation(fields: [bankId], references: [id])
+  bankId    String?
+  createdAt DateTime   @default(now())
+  lastLogin DateTime?
+  movements Movement[]
+  auditLogs AuditLog[]
+}
+
+model Bank {
+  id        String     @id @default(uuid())
+  name      String
+  locations Location[]
+  users     User[]
+  cardTypes CardType[]
+  createdAt DateTime   @default(now())
+}
+
+model Location {
+  id            String     @id @default(uuid())
+  name          String
+  bank          Bank       @relation(fields: [bankId], references: [id])
+  bankId        String
+  stock         Stock[]
+  movements     Movement[] @relation("LocationMovements")
+  destMovements Movement[] @relation("MovementDestLocation")
+  createdAt     DateTime   @default(now())
+}
+
+model CardType {
+  id             String     @id @default(uuid())
+  name           String
+  bank           Bank       @relation(fields: [bankId], references: [id])
+  bankId         String
+  stock          Stock[]
+  movements      Movement[]
+  alertThreshold Int?       @default(0)
+  createdAt      DateTime   @default(now())
+}
+
+model Stock {
+  id         String   @id @default(uuid())
+  location   Location @relation(fields: [locationId], references: [id])
+  locationId String
+  cardType   CardType @relation(fields: [cardTypeId], references: [id])
+  cardTypeId String
+  quantity   Int
+  lastUpdate DateTime @updatedAt
+}
+
+model Movement {
+  id             String    @id @default(uuid())
+  type           String // entree, sortie, transfert
+  quantity       Int
+  user           User      @relation(fields: [userId], references: [id])
+  userId         String
+  cardType       CardType  @relation(fields: [cardTypeId], references: [id])
+  cardTypeId     String
+  location       Location  @relation("LocationMovements", fields: [locationId], references: [id])
+  locationId     String
+  destLocation   Location? @relation("MovementDestLocation", fields: [destLocationId], references: [id])
+  destLocationId String?
+  createdAt      DateTime  @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  action    String
+  resource  String
+  details   String?
+  ip        String?
+  type      String // success, error, info
+  timestamp DateTime @default(now())
+}

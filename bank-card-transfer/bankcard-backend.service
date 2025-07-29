@@ -1,0 +1,15 @@
+﻿[Unit]
+Description=Bank Card Stock Management Backend
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=bankcard
+WorkingDirectory=/opt/bank-card-stock-management/backend
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node dist/server.js
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
