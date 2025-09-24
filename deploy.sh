@@ -7,7 +7,7 @@ BRANCH="main"
 APP_DIR="/var/www/app"
 
 DB_USER="appuser"
-DB_PASS="MotDePassFort"
+DB_PASS="MotDePasseFort"
 DB_NAME="appdb"
 DB_HOST="127.0.0.1"
 DB_PORT="5432"
@@ -139,7 +139,7 @@ if [ "${ENABLE_NGINX}" = "true" ] && [ "${ENABLE_LETSENCRYPT}" = "true" ] && [ -
   fi
   systemctl status certbot-renew.timer >/dev/null 2>&1 && echo "Renouvellement auto actif (certbot-renew.timer)."
 else
-  echo "Lets Encrypt non exécuté (conditions non remplies)."
+echo "Lets Encrypt non exécuté (conditions non remplies)."
 fi
 
 echo "[10/10] Vérifications & Seed (optionnel)"
@@ -154,4 +154,5 @@ else
   echo "Accédez à: http://<IP>:3000"
 fi
 echo "PM2 app: ${PM2_APP_NAME} (pm2 status, pm2 logs ${PM2_APP_NAME})"
+
 
