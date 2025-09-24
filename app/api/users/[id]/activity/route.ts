@@ -19,13 +19,13 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     // Modifications de profil (AuditLog)
     const auditLogs = await prisma.auditLog.findMany({
       where: { userId: id },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { timestamp: 'desc' },
       take: 5,
     });
     const auditActivity = auditLogs.map(log => ({
       type: 'modification',
       description: log.action,
-      timestamp: log.createdAt,
+      timestamp: log.timestamp,
     }));
     // Mouvements
     const movements = await prisma.movement.findMany({

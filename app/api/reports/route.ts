@@ -81,3 +81,40 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Erreur lors de la création du rapport." }, { status: 500 });
   }
 } 
+
+// PATCH /api/reports : met à jour un rapport existant
+export async function PATCH(req: NextRequest) {
+  const data = await req.json();
+  const { id, ...updateData } = data || {};
+  if (!id) {
+    return NextResponse.json({ error: 'ID manquant' }, { status: 400 });
+  }
+  try {
+    const report = await prisma.report.update({ where: { id }, data: updateData });
+    return NextResponse.json(report);
+  } catch (error: any) {
+    return NextResponse.json({ error: "Erreur lors de la mise à jour du rapport." }, { status: 500 });
+  }
+}
+
+// DELETE /api/reports : supprime un rapport par id
+export async function DELETE(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const idFromQuery = searchParams.get('id');
+  let id = idFromQuery as string | null;
+  if (!id) {
+    try {
+      const body = await req.json();
+      id = body?.id || null;
+    } catch {}
+  }
+  if (!id) {
+    return NextResponse.json({ error: 'ID manquant' }, { status: 400 });
+  }
+  try {
+    await prisma.report.delete({ where: { id } });
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    return NextResponse.json({ error: "Erreur lors de la suppression du rapport." }, { status: 500 });
+  }
+}
