@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ========= Paramètres à personnaliser =========
+# ========= Paramï¿½tres ï¿½ personnaliser =========
 REPO_URL="https://github.com/boujelbanemohamed/Gestion_projet_SMT_VF.git"
 BRANCH="main"
 APP_DIR="/var/www/app"
@@ -23,7 +23,7 @@ NODE_VERSION="20"
 PM2_APP_NAME="bank-stock"
 # =============================================
 
-echo "[1/10] Mise à jour du système et outils de base"
+echo "[1/10] Mise ï¿½ jour du systï¿½me et outils de base"
 sudo dnf -y update
 sudo dnf -y install git curl tar policycoreutils-python-utils firewalld
 sudo systemctl enable --now firewalld || true
@@ -48,11 +48,11 @@ if ! command -v psql >/dev/null 2>&1; then
   sudo systemctl enable --now postgresql
 fi
 
-echo "[3b] Création utilisateur/base PostgreSQL (idempotent)"
+echo "[3b] Crï¿½ation utilisateur/base PostgreSQL (idempotent)"
 sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='${DB_USER}'" | grep -q 1 || sudo -u postgres psql -c "CREATE USER ${DB_USER} WITH PASSWORD '${DB_PASS}';"
 sudo -u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" | grep -q 1 || sudo -u postgres psql -c "CREATE DATABASE ${DB_NAME} OWNER ${DB_USER};"
 
-echo "[4/10] Clonage/MAJ du dépôt"
+echo "[4/10] Clonage/MAJ du dï¿½pï¿½t"
 sudo mkdir -p "${APP_DIR}"
 sudo chown -R "$USER":"$USER" "${APP_DIR}"
 if [ ! -d "${APP_DIR}/.git" ]; then
@@ -63,7 +63,7 @@ git fetch --all || true
 git checkout "${BRANCH}" || true
 git pull origin "${BRANCH}" || true
 
-echo "[5/10] Dépendances Node"
+echo "[5/10] Dï¿½pendances Node"
 npm ci
 mkdir -p public/uploads
 
@@ -72,14 +72,14 @@ cat > .env <<EOF
 DATABASE_URL="postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public"
 EOF
 
-# Passe provider à postgresql si encore en sqlite
+# Passe provider ï¿½ postgresql si encore en sqlite
 if grep -q 'provider = "sqlite"' prisma/schema.prisma; then
   cp prisma/schema.prisma prisma/schema.prisma.bak
   sed -i 's/provider = "sqlite"/provider = "postgresql"/' prisma/schema.prisma
 fi
 
 npx prisma generate
-# En prod sans migrations versionnées: db push (sinon: prisma migrate deploy)
+# En prod sans migrations versionnï¿½es: db push (sinon: prisma migrate deploy)
 npx prisma db push
 
 echo "[7/10] Build et lancement PM2"
@@ -113,18 +113,18 @@ server {
   location / {
     proxy_pass http://127.0.0.1:3000;
     proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Upgrade \$http_upgrade;
     proxy_set_header Connection "upgrade";
-    proxy_set_header Host $host;
-    proxy_cache_bypass $http_upgrade;
+    proxy_set_header Host \$host;
+    proxy_cache_bypass \$http_upgrade;
   }
 }
 NGINX
     sudo nginx -t
     sudo systemctl reload nginx
-    echo "Nginx configuré pour http://${DOMAIN}"
+    echo "Nginx configurï¿½ pour http://${DOMAIN}"
   else
-    echo "Nginx installé. Pas de domaine fourni; accès http://<IP>:3000"
+    echo "Nginx installï¿½. Pas de domaine fourni; accï¿½s http://<IP>:3000"
   fi
 fi
 
@@ -134,24 +134,24 @@ if [ "${ENABLE_NGINX}" = "true" ] && [ "${ENABLE_LETSENCRYPT}" = "true" ] && [ -
   if [ -n "${LETSENCRYPT_EMAIL}" ]; then
     sudo certbot --nginx --non-interactive --agree-tos -m "${LETSENCRYPT_EMAIL}" -d "${DOMAIN}"
   else
-    echo "LETSENCRYPT_EMAIL vide  Certbot peut être interactif."
+    echo "LETSENCRYPT_EMAIL vide  Certbot peut ï¿½tre interactif."
     sudo certbot --nginx -d "${DOMAIN}"
   fi
   systemctl status certbot-renew.timer >/dev/null 2>&1 && echo "Renouvellement auto actif (certbot-renew.timer)."
 else
-echo "Lets Encrypt non exécuté (conditions non remplies)."
+echo "Lets Encrypt non exï¿½cutï¿½ (conditions non remplies)."
 fi
 
-echo "[10/10] Vérifications & Seed (optionnel)"
+echo "[10/10] Vï¿½rifications & Seed (optionnel)"
 curl -s --max-time 5 http://127.0.0.1:3000/api/dashboard >/dev/null && echo "API dashboard OK" || echo "API dashboard non joignable."
-# Seed de démo si souhaité :
+# Seed de dï¿½mo si souhaitï¿½ :
 # curl -X POST http://127.0.0.1:3000/api/users/seed || true
 
-echo "Déploiement terminé."
+echo "Dï¿½ploiement terminï¿½."
 if [ -n "${DOMAIN}" ]; then
-  echo "Accédez à: https://${DOMAIN}"
+  echo "Accï¿½dez ï¿½: https://${DOMAIN}"
 else
-  echo "Accédez à: http://<IP>:3000"
+  echo "Accï¿½dez ï¿½: http://<IP>:3000"
 fi
 echo "PM2 app: ${PM2_APP_NAME} (pm2 status, pm2 logs ${PM2_APP_NAME})"
 
