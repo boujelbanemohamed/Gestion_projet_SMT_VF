@@ -12,11 +12,11 @@ DB_NAME="appdb"
 DB_HOST="127.0.0.1"
 DB_PORT="5432"
 
-# Nginx + Lets Encrypt
-ENABLE_NGINX="true"
-DOMAIN="gstock.monetiquetunisie.com"
-ENABLE_LETSENCRYPT="true"
-LETSENCRYPT_EMAIL="admin@monetiquetunisie.com"
+# Nginx + Lets Encrypt (désactivés par défaut)
+ENABLE_NGINX="false"
+DOMAIN=""
+ENABLE_LETSENCRYPT="false"
+LETSENCRYPT_EMAIL=""
 
 # Node & PM2
 NODE_VERSION="20"
@@ -27,6 +27,10 @@ echo "[1/10] Mise a jour du systeme et outils de base"
 sudo dnf -y update
 sudo dnf -y install git curl tar policycoreutils-python-utils firewalld
 sudo systemctl enable --now firewalld || true
+
+# Ouvrir le port applicatif 3000
+sudo firewall-cmd --add-port=3000/tcp --permanent || true
+sudo firewall-cmd --reload || true
 
 echo "[2/10] Installation de Node (nvm) et PM2"
 if ! command -v nvm >/dev/null 2>&1; then
@@ -90,13 +94,11 @@ npx prisma generate
 # En prod sans migrations versionn�es: db push (sinon: prisma migrate deploy)
 npx prisma db push
 
-echo "[7/10] Build et lancement PM2"
+echo "[7/10] Build et lancement PM2 (0.0.0.0:3000)"
 npm run build
-if pm2 status "${PM2_APP_NAME}" >/dev/null 2>&1; then
-  pm2 reload "${PM2_APP_NAME}" || true
-else
-  pm2 start npm --name "${PM2_APP_NAME}" -- start
-fi
+# Relance propre avec host/port explicites
+pm2 delete "${PM2_APP_NAME}" || true
+pm2 start npm --name "${PM2_APP_NAME}" -- start -- -H 0.0.0.0 -p 3000
 pm2 save
 pm2 startup systemd -u "$USER" --hp "$HOME" | tee /tmp/pm2_startup.txt
 # shellcheck disable=SC2046
