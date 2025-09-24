@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ========= Param�tres � personnaliser =========
+# ========= Parametres a personnaliser =========
 REPO_URL="https://github.com/boujelbanemohamed/Gestion_projet_SMT_VF.git"
 BRANCH="main"
 APP_DIR="/var/www/app"
@@ -23,7 +23,7 @@ NODE_VERSION="20"
 PM2_APP_NAME="bank-stock"
 # =============================================
 
-echo "[1/10] Mise � jour du syst�me et outils de base"
+echo "[1/10] Mise a jour du systeme et outils de base"
 sudo dnf -y update
 sudo dnf -y install git curl tar policycoreutils-python-utils firewalld
 sudo systemctl enable --now firewalld || true
@@ -48,11 +48,11 @@ if ! command -v psql >/dev/null 2>&1; then
   sudo systemctl enable --now postgresql
 fi
 
-echo "[3b] Cr�ation utilisateur/base PostgreSQL (idempotent)"
+echo "[3b] Creation utilisateur/base PostgreSQL (idempotent)"
 sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='${DB_USER}'" | grep -q 1 || sudo -u postgres psql -c "CREATE USER ${DB_USER} WITH PASSWORD '${DB_PASS}';"
 sudo -u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" | grep -q 1 || sudo -u postgres psql -c "CREATE DATABASE ${DB_NAME} OWNER ${DB_USER};"
 
-echo "[4/10] Clonage/MAJ du d�p�t"
+echo "[4/10] Clonage/MAJ du depot"
 sudo mkdir -p "${APP_DIR}"
 sudo chown -R "$USER":"$USER" "${APP_DIR}"
 if [ ! -d "${APP_DIR}/.git" ]; then
@@ -63,16 +63,24 @@ git fetch --all || true
 git checkout "${BRANCH}" || true
 git pull origin "${BRANCH}" || true
 
-echo "[5/10] D�pendances Node"
-npm ci
+echo "[5/10] Dependances Node"
+if [ -f package-lock.json ]; then
+  npm ci
+elif [ -f pnpm-lock.yaml ]; then
+  npm i -g pnpm && pnpm i --frozen-lockfile
+elif [ -f yarn.lock ]; then
+  npm i -g corepack && corepack enable && yarn install --frozen-lockfile
+else
+  npm install
+fi
 mkdir -p public/uploads
 
-echo "[6/10] Configuration Prisma  PostgreSQL"
+echo "[6/10] Configuration Prisma -> PostgreSQL"
 cat > .env <<EOF
 DATABASE_URL="postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public"
 EOF
 
-# Passe provider � postgresql si encore en sqlite
+# Passe provider a postgresql si encore en sqlite
 if grep -q 'provider = "sqlite"' prisma/schema.prisma; then
   cp prisma/schema.prisma prisma/schema.prisma.bak
   sed -i 's/provider = "sqlite"/provider = "postgresql"/' prisma/schema.prisma
