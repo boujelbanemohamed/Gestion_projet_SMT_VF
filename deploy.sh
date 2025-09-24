@@ -130,9 +130,9 @@ server {
 NGINX
     sudo nginx -t
     sudo systemctl reload nginx
-    echo "Nginx configur� pour http://${DOMAIN}"
+    echo "Nginx configure pour http://${DOMAIN}"
   else
-    echo "Nginx install�. Pas de domaine fourni; acc�s http://<IP>:3000"
+    echo "Nginx installe. Pas de domaine fourni; acces http://<IP>:3000"
   fi
 fi
 
@@ -142,24 +142,24 @@ if [ "${ENABLE_NGINX}" = "true" ] && [ "${ENABLE_LETSENCRYPT}" = "true" ] && [ -
   if [ -n "${LETSENCRYPT_EMAIL}" ]; then
     sudo certbot --nginx --non-interactive --agree-tos -m "${LETSENCRYPT_EMAIL}" -d "${DOMAIN}"
   else
-    echo "LETSENCRYPT_EMAIL vide  Certbot peut �tre interactif."
+    echo "LETSENCRYPT_EMAIL vide - Certbot peut etre interactif."
     sudo certbot --nginx -d "${DOMAIN}"
   fi
   systemctl status certbot-renew.timer >/dev/null 2>&1 && echo "Renouvellement auto actif (certbot-renew.timer)."
 else
-echo "Lets Encrypt non ex�cut� (conditions non remplies)."
+  echo "Lets Encrypt non execute (conditions non remplies)."
 fi
 
-echo "[10/10] V�rifications & Seed (optionnel)"
+echo "[10/10] Verifications & Seed (optionnel)"
 curl -s --max-time 5 http://127.0.0.1:3000/api/dashboard >/dev/null && echo "API dashboard OK" || echo "API dashboard non joignable."
 # Seed de d�mo si souhait� :
 # curl -X POST http://127.0.0.1:3000/api/users/seed || true
 
-echo "D�ploiement termin�."
+echo "Deploiement termine."
 if [ -n "${DOMAIN}" ]; then
-  echo "Acc�dez �: https://${DOMAIN}"
+  echo "Accedez a: https://${DOMAIN}"
 else
-  echo "Acc�dez �: http://<IP>:3000"
+  echo "Accedez a: http://<IP>:3000"
 fi
 echo "PM2 app: ${PM2_APP_NAME} (pm2 status, pm2 logs ${PM2_APP_NAME})"
 
