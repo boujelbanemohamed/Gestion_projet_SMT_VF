@@ -304,19 +304,19 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-2">
-                  <Button className="justify-start bg-transparent" variant="outline">
+                  <Button className="justify-start bg-transparent" variant="outline" onClick={() => router.push('/entries')}>
                     <TrendingUp className="h-4 w-4 mr-2" />
                     Nouvelle Entrée
                   </Button>
-                  <Button className="justify-start bg-transparent" variant="outline">
+                  <Button className="justify-start bg-transparent" variant="outline" onClick={() => router.push('/movements')}>
                     <TrendingDown className="h-4 w-4 mr-2" />
                     Nouvelle Sortie
                   </Button>
-                  <Button className="justify-start bg-transparent" variant="outline">
+                  <Button className="justify-start bg-transparent" variant="outline" onClick={() => router.push('/movements')}>
                     <ArrowRightLeft className="h-4 w-4 mr-2" />
                     Nouveau Transfert
                   </Button>
-                  <Button className="justify-start bg-transparent" variant="outline">
+                  <Button className="justify-start bg-transparent" variant="outline" onClick={() => router.push('/reports')}>
                     <FileText className="h-4 w-4 mr-2" />
                     Générer Rapport
                   </Button>
